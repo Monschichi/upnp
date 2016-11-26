@@ -18,8 +18,8 @@ def status():
     json['physical']['connected'] = link['NewPhysicalLinkStatus'] == 'Up'
     json['physical']['type'] = link['NewWANAccessType']
     json['physical']['rate'] = dict()
-    json['physical']['rate']['up'] = link['NewLayer1UpstreamMaxBitRate']
-    json['physical']['rate']['down'] = link['NewLayer1DownstreamMaxBitRate']
+    json['physical']['rate']['up'] = link['NewLayer1UpstreamMaxBitRate']/8
+    json['physical']['rate']['down'] = link['NewLayer1DownstreamMaxBitRate']/8
     json['logical'] = dict()
     json['logical']['connected'] = connection['NewConnectionStatus'] == 'Connected'
     json['logical']['lasterror'] = connection['NewLastConnectionError']
