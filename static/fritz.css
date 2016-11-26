@@ -1,0 +1,10 @@
+div.label {
+  width: 4em;
+  max-width: 4em;
+  float: left;
+}
+
+div.up-bar, dov.down-bar {
+  clear: left;
+  height: 1em;
+}
