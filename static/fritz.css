@@ -3,7 +3,7 @@ body {
   font-size: 4em;
   white-space:pre;
   background-color: Black;
-  color: DarkGrey;
+  color: #303030;
   height: 5em;
 }
 body::-webkit-scrollbar { width: 0 !important }
