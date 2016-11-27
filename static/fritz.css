@@ -4,7 +4,9 @@ body {
   white-space:pre;
   background-color: Black;
   color: DarkGrey;
+  height: 5em;
 }
+body::-webkit-scrollbar { width: 0 !important }
 
 .eins {
   position: absolute;
