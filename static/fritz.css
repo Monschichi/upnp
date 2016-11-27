@@ -1,10 +1,48 @@
-div.label {
-  width: 4em;
-  max-width: 4em;
-  float: left;
+body {
+  font-family: monospace;
+  font-size: 4em;
+  white-space:pre;
+  background-color: Black;
+  color: DarkGrey;
 }
 
-div.up-bar, dov.down-bar {
-  clear: left;
-  height: 1em;
+.eins {
+  position: absolute;
+  top: 0em;
+}
+.zwei {
+  position: absolute;
+  top: 1.4em;
+}
+.drei {
+  position: absolute;
+  top: 2.8em;
+}
+.vier {
+  position: absolute;
+  top: 4em;
+}
+
+.bg {
+  z-index: -1;
+}
+
+.small {
+  font-size: 0.5em;
+}
+
+.fggreen {
+  color: DarkGreen;
+}
+.fgred {
+  color: Red;
+}
+.bggreen {
+  background-color: DarkGreen;
+}
+.bgyellow {
+  background-color: DarkGoldenRod;
+}
+.bgred {
+  background-color: Red;
 }

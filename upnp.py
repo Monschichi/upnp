@@ -17,8 +17,11 @@ def status():
     link = fc.call_action('WANCommonInterfaceConfig','GetCommonLinkProperties')
     connection = fc.call_action('WANIPConnection', 'GetStatusInfo')
     speeds = fc.call_action('WANCommonInterfaceConfig','GetAddonInfos')
+    ext_v4 = fc.call_action('WANIPConnection','GetExternalIPAddress')['NewExternalIPAddress']
+    ipv6 = fc.call_action('WANIPConnection','X_AVM_DE_GetIPv6Prefix')
 
     json = dict()
+    json['modelname'] = fc.modelname
     json['physical'] = dict()
     json['physical']['connected'] = link['NewPhysicalLinkStatus'] == 'Up'
     json['physical']['type'] = link['NewWANAccessType']
@@ -29,6 +32,12 @@ def status():
     json['logical']['connected'] = connection['NewConnectionStatus'] == 'Connected'
     json['logical']['lasterror'] = connection['NewLastConnectionError']
     json['logical']['uptime'] = connection['NewUptime']
+    json['logical']['ipv4'] = ext_v4
+    json['logical']['ipv6'] = dict()
+    json['logical']['ipv6']['prefix'] = ipv6['NewIPv6Prefix']
+    json['logical']['ipv6']['length'] = ipv6['NewPrefixLength']
+    json['logical']['ipv6']['valid_lft'] = ipv6['NewValidLifetime']
+    json['logical']['ipv6']['preferred_lft'] = ipv6['NewPreferedLifetime']
     json['rate'] = dict()
     json['rate']['up'] = speeds['NewByteSendRate']
     json['rate']['down'] = speeds['NewByteReceiveRate']
