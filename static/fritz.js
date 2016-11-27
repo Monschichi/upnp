@@ -46,11 +46,11 @@ function myTimer() {
     var uprate = json.rate.up/json.physical.rate.up*100
     $("span#up-bar").css("width", uprate + "%")
     if (uprate >= 90) {
-      $("span#up-bar").addClass("bgred")
+      $("span#up-bar").addClass("bgred").removeClass("bgyellow bggreen")
     } else if (uprate >= 70) {
-      $("span#up-bar").addClass("bgyellow")
+      $("span#up-bar").addClass("bgyellow").removeClass("bggreen bgred")
     } else {
-      $("span#up-bar").addClass("bggreen")
+      $("span#up-bar").addClass("bggreen").removeClass("bgyellow bgred")
     }
 
     // Down
@@ -60,11 +60,11 @@ function myTimer() {
     var downrate = json.rate.down/json.physical.rate.down*100
     $("span#down-bar").css("width", downrate + "%")
     if (downrate >= 90) {
-      $("span#down-bar").addClass("bgred")
+      $("span#down-bar").addClass("bgred").removeClass("bgyellow bggreen")
     } else if (downrate >= 70) {
-      $("span#down-bar").addClass("bgyellow")
+      $("span#down-bar").addClass("bgyellow").removeClass("bggreen bgred")
     } else {
-      $("span#down-bar").addClass("bggreen")
+      $("span#down-bar").addClass("bggreen").removeClass("bgyellow bgred")
     }
   })
   .fail(function() {
