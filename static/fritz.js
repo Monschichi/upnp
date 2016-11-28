@@ -19,7 +19,7 @@ function myTimer() {
     physical.append(physicalstatus)
     var bw = $("<span></span>")
     bw.addClass("small").text(Math.round(json.physical.rate.up*8/1000000) + "/" + Math.round(json.physical.rate.down*8/1000000) + " MBit/s")
-    physical.append(" ").append(bw)
+    physical.append(bw)
 
     // Logical
     var logical = $("span#logical")
@@ -32,7 +32,7 @@ function myTimer() {
     }
     logical.append(logicalstatus)
     var ips = $("<span></span>")
-    ips.addClass("small").text(" " + json.logical.ipv4 + " " + json.logical.ipv6.prefix + "/" + json.logical.ipv6.length)
+    ips.addClass("small").text(json.logical.ipv4 + " " + json.logical.ipv6.prefix + "/" + json.logical.ipv6.length)
     logical.append(ips)
 
     // get rate lenght
