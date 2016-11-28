@@ -2,6 +2,18 @@ function prepad(number, length) {
   return(" ".repeat(Math.max(0,length-number.toString().length)) + number)
 }
 
+function uhr() {
+  var Jetzt = new Date()
+  var Stunden = Jetzt.getHours()
+  var Minuten = Jetzt.getMinutes()
+  var Sekunden = Jetzt.getSeconds()
+  var Vorstd = (Stunden < 10) ? "0" : ""
+  var Vormin = (Minuten < 10) ? ":0" : ":"
+  var Vorsek = (Sekunden < 10) ? ":0" : ":"
+  var Uhrzeit = Vorstd + Stunden + Vormin + Minuten + Vorsek + Sekunden
+  $("span#uhr").text(Uhrzeit)
+}
+
 function myTimer() {
   $.getJSON( "/status", function( json ) {
     var contype = json.physical.type
@@ -75,6 +87,7 @@ function myTimer() {
       $("span#up-bar").css("width", "0%")
       $("span#down-bar").css("width", "0%")
   })
+  uhr()
 }
 
 var reload = setInterval(myTimer, 1100)

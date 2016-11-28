@@ -48,3 +48,9 @@ body::-webkit-scrollbar { width: 0 !important }
 .bgred {
   background-color: Red;
 }
+
+#uhr {
+  position: absolute;
+  top: 0em;
+  right: 0em;
+}
