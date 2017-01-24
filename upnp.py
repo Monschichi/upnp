@@ -7,12 +7,12 @@ from flask.ext.cache import Cache
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 app = Flask(__name__)
 cache.init_app(app)
-fc = fritzconnection.FritzConnection(address='10.0.0.1')
 
 
 @app.route("/status", methods=['GET'])
 @cache.cached(timeout=1)
 def status():
+    fc = fritzconnection.FritzConnection(address='10.0.0.1')
     link = fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
     connection = fc.call_action('WANIPConnection', 'GetStatusInfo')
     speeds = fc.call_action('WANCommonInterfaceConfig', 'GetAddonInfos')
