@@ -14,17 +14,21 @@ fc = fritzconnection.FritzConnection(address='10.0.0.1')
 def get_link():
     return fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
 
+
 @cache.cached(timeout=10, key_prefix='connection')
 def get_connection():
     return fc.call_action('WANIPConnection', 'GetStatusInfo')
+
 
 @cache.cached(timeout=20, key_prefix='ipv4')
 def get_ipv4():
     return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress']
 
+
 @cache.cached(timeout=20, key_prefix='ipv6')
 def get_ipv6():
     return fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
+
 
 @cache.cached(timeout=0.9)
 @app.route("/status", methods=['GET'])
@@ -61,6 +65,7 @@ def status():
     json['total']['down'] = speeds['NewTotalBytesReceived']
 
     return jsonify(json)
+
 
 if __name__ == "__main__":
     app.run()
