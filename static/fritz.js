@@ -90,4 +90,4 @@ function myTimer() {
   uhr()
 }
 
-var reload = setInterval(myTimer, 1100)
+var reload = setInterval(myTimer, 1001)

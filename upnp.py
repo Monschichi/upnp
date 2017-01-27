@@ -7,17 +7,33 @@ from flask.ext.cache import Cache
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 app = Flask(__name__)
 cache.init_app(app)
+fc = fritzconnection.FritzConnection(address='10.0.0.1')
 
 
+@cache.cached(timeout=5, key_prefix='link')
+def get_link():
+    return fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
+
+@cache.cached(timeout=10, key_prefix='connection')
+def get_connection():
+    return fc.call_action('WANIPConnection', 'GetStatusInfo')
+
+@cache.cached(timeout=20, key_prefix='ipv4')
+def get_ipv4():
+    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress']
+
+@cache.cached(timeout=20, key_prefix='ipv6')
+def get_ipv6():
+    return fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
+
+@cache.cached(timeout=0.9)
 @app.route("/status", methods=['GET'])
-@cache.cached(timeout=1)
 def status():
-    fc = fritzconnection.FritzConnection(address='10.0.0.1')
-    link = fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
-    connection = fc.call_action('WANIPConnection', 'GetStatusInfo')
+    link = get_link()
+    connection = get_connection()
+    ext_v4 = get_ipv4()
+    ipv6 = get_ipv6()
     speeds = fc.call_action('WANCommonInterfaceConfig', 'GetAddonInfos')
-    ext_v4 = fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress']
-    ipv6 = fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
 
     json = dict()
     json['modelname'] = fc.modelname
