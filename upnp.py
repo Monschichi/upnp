@@ -10,24 +10,19 @@ cache.init_app(app)
 fc = fritzconnection.FritzConnection(address='10.0.0.1')
 
 
-@cache.cached(timeout=5, key_prefix='link')
+@cache.cached(timeout=26, key_prefix='link')
 def get_link():
     return fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
 
 
-@cache.cached(timeout=10, key_prefix='connection')
+@cache.cached(timeout=13, key_prefix='connection')
 def get_connection():
     return fc.call_action('WANIPConnection', 'GetStatusInfo')
 
 
-@cache.cached(timeout=20, key_prefix='ipv4')
-def get_ipv4():
-    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress']
-
-
-@cache.cached(timeout=20, key_prefix='ipv6')
-def get_ipv6():
-    return fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
+@cache.cached(timeout=21, key_prefix='ipv4')
+def get_ip():
+    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
 
 
 @cache.cached(timeout=0.9)
@@ -35,8 +30,7 @@ def get_ipv6():
 def status():
     link = get_link()
     connection = get_connection()
-    ext_v4 = get_ipv4()
-    ipv6 = get_ipv6()
+    ext_v4, ipv6 = get_ip()
     speeds = fc.call_action('WANCommonInterfaceConfig', 'GetAddonInfos')
 
     json = dict()
