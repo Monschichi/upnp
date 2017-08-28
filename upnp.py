@@ -1,26 +1,26 @@
 #!/usr/bin/env python3
 
-import fritzconnection
-from flask import Flask, jsonify
-from flask.ext.cache import Cache
+from flask import Flask, jsonify, render_template
+from flask_cache import Cache
+from fritzconnection import FritzConnection
 
 cache = Cache(config={'CACHE_TYPE': 'simple'})
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 cache.init_app(app)
-fc = fritzconnection.FritzConnection(address='10.0.0.1')
+fc = FritzConnection()
 
 
-@cache.cached(timeout=26, key_prefix='link')
+@cache.cached(timeout=4.9, key_prefix='link')
 def get_link():
     return fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
 
 
-@cache.cached(timeout=13, key_prefix='connection')
+@cache.cached(timeout=4.9, key_prefix='connection')
 def get_connection():
     return fc.call_action('WANIPConnection', 'GetStatusInfo')
 
 
-@cache.cached(timeout=21, key_prefix='ipv4')
+@cache.cached(timeout=4.9, key_prefix='ipv4')
 def get_ip():
     return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
 
@@ -32,6 +32,8 @@ def status():
     connection = get_connection()
     ext_v4, ipv6 = get_ip()
     speeds = fc.call_action('WANCommonInterfaceConfig', 'GetAddonInfos')
+    packetsr = fc.call_action('WANCommonInterfaceConfig', 'GetTotalPacketsReceived')['NewTotalPacketsReceived']
+    packetss = fc.call_action('WANCommonInterfaceConfig', 'GetTotalPacketsSent')['NewTotalPacketsSent']
 
     json = dict()
     json['modelname'] = fc.modelname
@@ -55,10 +57,25 @@ def status():
     json['rate']['up'] = speeds['NewByteSendRate']
     json['rate']['down'] = speeds['NewByteReceiveRate']
     json['total'] = dict()
-    json['total']['up'] = speeds['NewTotalBytesSent']
-    json['total']['down'] = speeds['NewTotalBytesReceived']
+    json['total']['bytes'] = dict()
+    json['total']['bytes']['up'] = speeds['NewTotalBytesSent']
+    json['total']['bytes']['down'] = speeds['NewTotalBytesReceived']
+    json['total']['packets'] = dict()
+    json['total']['packets']['up'] = packetss
+    json['total']['packets']['down'] = packetsr
+    json['voip'] = dict()
+    json['voip']['dns'] = [speeds['NewVoipDNSServer1'], speeds['NewVoipDNSServer2']]
+    json['dns'] = [speeds['NewDNSServer1'], speeds['NewDNSServer2']]
+    json['RoutedBridgedModeBoth'] = speeds['NewRoutedBridgedModeBoth']
+    json['upnp'] = dict()
+    json['upnp']['enabled'] = speeds['NewUpnpControlEnabled'] == '1'
 
     return jsonify(json)
+
+
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('fritz.htm')
 
 
 if __name__ == "__main__":
