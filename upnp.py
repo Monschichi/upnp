@@ -26,7 +26,7 @@ def get_ip():
 
 
 @cache.cached(timeout=0.9)
-@app.route("/status", methods=['GET'])
+@app.route('/status', methods=['GET'])
 def status():
     link = get_link()
     connection = get_connection()
@@ -78,5 +78,5 @@ def index():
     return render_template('fritz.htm')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run()
