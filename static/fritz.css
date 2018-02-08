@@ -28,7 +28,12 @@ body::-webkit-scrollbar {
 
 .vier {
     position: absolute;
-    top: 4em;
+    top: 4.2em;
+}
+
+.fuenf {
+    position: absolute;
+    top: 5.6em;
 }
 
 .bg {

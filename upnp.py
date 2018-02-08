@@ -22,7 +22,8 @@ def get_connection():
 
 @cache.cached(timeout=4.9, key_prefix='ipv4')
 def get_ip():
-    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
+    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action(
+        'WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
 
 
 @cache.cached(timeout=0.9)

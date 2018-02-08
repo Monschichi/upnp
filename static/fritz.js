@@ -4,14 +4,9 @@ function prepad(number, length) {
 
 function uhr() {
   var Jetzt = new Date()
-  var Stunden = Jetzt.getHours()
-  var Minuten = Jetzt.getMinutes()
-  var Sekunden = Jetzt.getSeconds()
-  var Vorstd = (Stunden < 10) ? "0" : ""
-  var Vormin = (Minuten < 10) ? ":0" : ":"
-  var Vorsek = (Sekunden < 10) ? ":0" : ":"
-  var Uhrzeit = Vorstd + Stunden + Vormin + Minuten + Vorsek + Sekunden
-  $("span#uhr").text(Uhrzeit)
+  var datum = { weekday: "short", day: "numeric", month: "short"};
+  $("span#datum").text(Jetzt.toLocaleDateString("de-DE", datum))
+  $("span#uhr").text(Jetzt.toLocaleTimeString("de-DE"))
 }
 
 function myTimer() {
