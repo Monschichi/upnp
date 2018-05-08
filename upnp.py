@@ -1,32 +1,25 @@
 #!/usr/bin/env python3
 
 from flask import Flask, jsonify, render_template
-from flask_cache import Cache
 from fritzconnection import FritzConnection
 
-cache = Cache(config={'CACHE_TYPE': 'simple'})
 app = Flask(__name__, static_url_path='/static')
-cache.init_app(app)
 fc = FritzConnection()
 
 
-@cache.cached(timeout=4.9, key_prefix='link')
 def get_link():
     return fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
 
 
-@cache.cached(timeout=4.9, key_prefix='connection')
 def get_connection():
     return fc.call_action('WANIPConnection', 'GetStatusInfo')
 
 
-@cache.cached(timeout=4.9, key_prefix='ipv4')
 def get_ip():
     return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action(
         'WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
 
 
-@cache.cached(timeout=0.9)
 @app.route('/status', methods=['GET'])
 def status():
     link = get_link()
