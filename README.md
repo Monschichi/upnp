@@ -17,6 +17,6 @@ $ . .venv/bin/activate
 $ pip install -r requirements.txt
 ```
 ## run
-```python
+```commandline
 $ python upnp.py
 ```
