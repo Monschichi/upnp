@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
-from flask import Flask, jsonify, render_template
+from flask import (
+    Flask,
+    jsonify,
+    render_template,
+)
 from fritzconnection import FritzConnection
 
 app = Flask(__name__, static_url_path='/static')
@@ -16,8 +20,8 @@ def get_connection():
 
 
 def get_ip():
-    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action(
-        'WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
+    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action('WANIPConnection',
+                                                                                                             'X_AVM_DE_GetIPv6Prefix')
 
 
 @app.route('/status', methods=['GET'])

@@ -8,12 +8,12 @@ body {
 }
 
 body::-webkit-scrollbar {
-    width: 0 !important
+    width: 0;
 }
 
 .eins {
     position: absolute;
-    top: 0em;
+    top: 0;
 }
 
 .zwei {
@@ -66,6 +66,6 @@ body::-webkit-scrollbar {
 
 #uhr {
     position: absolute;
-    top: 0em;
-    right: 0em;
+    top: 0;
+    right: 0;
 }
