@@ -1,5 +1,5 @@
 function prepad(number, length) {
-    return (" ".repeat(Math.max(0, length - number.toString().length)) + number)
+    return (" ".repeat(Math.max(0, length - number.toString().length)) + number);
 }
 
 function uhr() {
@@ -28,9 +28,9 @@ function update(json) {
     physical.removeClass("fgred").text(contype + " ".repeat(indentlength - contype.length) + ":");
     let physicalstatus = $("<span></span>");
     if (json["physical"]["connected"]) {
-        physicalstatus.addClass("fggreen").text("✔")
+        physicalstatus.addClass("fggreen").text("✔");
     } else {
-        physicalstatus.addClass("fgred").text("✘")
+        physicalstatus.addClass("fgred").text("✘");
     }
     physical.append(physicalstatus);
     let bw = $("<span></span>");
@@ -88,11 +88,11 @@ function update(json) {
 
 function myTimer() {
     $.getJSON("/status", function (json) {
-        update(json)
+        update(json);
     }).fail(function (jqxhr, textStatus, error) {
-        fail(jqxhr, textStatus, error)
+        fail(jqxhr, textStatus, error);
     });
-    uhr()
+    uhr();
 }
 
 setInterval(myTimer, 1001);
