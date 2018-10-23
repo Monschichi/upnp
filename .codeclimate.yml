@@ -1,0 +1,11 @@
+plugins:
+  csslint:
+    enabled: true
+  eslint:
+    enabled: true
+    channel: "eslint-4"
+    checks:
+      complexity:
+        enabled: true
+  pep8:
+    enabled: true
