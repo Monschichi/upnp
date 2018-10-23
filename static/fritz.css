@@ -1,10 +1,10 @@
 body {
-    font-family: monospace;
-    font-size: 4em;
-    white-space: pre;
     background-color: Black;
     color: #303030;
+    font-family: monospace;
+    font-size: 4em;
     height: 5em;
+    white-space: pre;
 }
 
 body::-webkit-scrollbar {
@@ -66,6 +66,6 @@ body::-webkit-scrollbar {
 
 #uhr {
     position: absolute;
-    top: 0;
     right: 0;
+    top: 0;
 }
