@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from typing import Dict
 
 from flask import (
     Flask,
@@ -20,7 +19,7 @@ def status():
     ipv6 = fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
     speeds = fc.call_action('WANCommonInterfaceConfig', 'GetAddonInfos')
 
-    json: Dict = dict()
+    json = dict()
     json['modelname'] = fc.modelname
     json['physical'] = dict()
     json['physical']['connected'] = link['NewPhysicalLinkStatus'] == 'Up'
