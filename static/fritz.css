@@ -64,7 +64,7 @@ body::-webkit-scrollbar {
     background-color: Red;
 }
 
-#uhr {
+.uhr {
     position: absolute;
     right: 0;
     top: 0;
