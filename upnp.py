@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from typing import Dict
 
 from flask import (
     Flask,
@@ -11,29 +12,15 @@ app = Flask(__name__, static_url_path='/static')
 fc = FritzConnection()
 
 
-def get_link():
-    return fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
-
-
-def get_connection():
-    return fc.call_action('WANIPConnection', 'GetStatusInfo')
-
-
-def get_ip():
-    return fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress'], fc.call_action('WANIPConnection',
-                                                                                                             'X_AVM_DE_GetIPv6Prefix')
-
-
 @app.route('/status', methods=['GET'])
 def status():
-    link = get_link()
-    connection = get_connection()
-    ext_v4, ipv6 = get_ip()
+    link = fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
+    connection = fc.call_action('WANIPConnection', 'GetStatusInfo')
+    ext_v4 = fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress']
+    ipv6 = fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
     speeds = fc.call_action('WANCommonInterfaceConfig', 'GetAddonInfos')
-    packetsr = fc.call_action('WANCommonInterfaceConfig', 'GetTotalPacketsReceived')['NewTotalPacketsReceived']
-    packetss = fc.call_action('WANCommonInterfaceConfig', 'GetTotalPacketsSent')['NewTotalPacketsSent']
 
-    json = dict()
+    json: Dict = dict()
     json['modelname'] = fc.modelname
     json['physical'] = dict()
     json['physical']['connected'] = link['NewPhysicalLinkStatus'] == 'Up'
@@ -58,9 +45,6 @@ def status():
     json['total']['bytes'] = dict()
     json['total']['bytes']['up'] = speeds['NewTotalBytesSent']
     json['total']['bytes']['down'] = speeds['NewTotalBytesReceived']
-    json['total']['packets'] = dict()
-    json['total']['packets']['up'] = packetss
-    json['total']['packets']['down'] = packetsr
     json['voip'] = dict()
     json['voip']['dns'] = [speeds['NewVoipDNSServer1'], speeds['NewVoipDNSServer2']]
     json['dns'] = [speeds['NewDNSServer1'], speeds['NewDNSServer2']]
