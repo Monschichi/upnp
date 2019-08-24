@@ -13,11 +13,11 @@ fc = FritzConnection()
 
 @app.route('/status', methods=['GET'])
 def status():
-    link = fc.call_action('WANCommonInterfaceConfig', 'GetCommonLinkProperties')
-    connection = fc.call_action('WANIPConnection', 'GetStatusInfo')
-    ext_v4 = fc.call_action('WANIPConnection', 'GetExternalIPAddress')['NewExternalIPAddress']
-    ipv6 = fc.call_action('WANIPConnection', 'X_AVM_DE_GetIPv6Prefix')
-    speeds = fc.call_action('WANCommonInterfaceConfig', 'GetAddonInfos')
+    link = fc.call_action('WANCommonIFC', 'GetCommonLinkProperties')
+    connection = fc.call_action('WANIPConn', 'GetStatusInfo')
+    ext_v4 = fc.call_action('WANIPConn', 'GetExternalIPAddress')['NewExternalIPAddress']
+    ipv6 = fc.call_action('WANIPConn', 'X_AVM_DE_GetIPv6Prefix')
+    speeds = fc.call_action('WANCommonIFC', 'GetAddonInfos')
 
     json = dict()
     json['modelname'] = fc.modelname
