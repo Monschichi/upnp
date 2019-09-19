@@ -10,4 +10,4 @@ lxml==4.4.1
 MarkupSafe==1.1.1
 requests==2.22.0
 urllib3==1.25.4
-Werkzeug==0.15.6
+Werkzeug==0.16.0
