@@ -1,20 +1,19 @@
-<html>
+<html lang="en">
 <head>
     <title>fritz.box Status</title>
-    <script language="javascript" type="text/javascript"
-            src="{{ url_for('static', filename='jquery.min.js') }}"></script>
-    <script language="javascript" type="text/javascript" src="{{ url_for('static', filename='fritz.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='fritz.css') }}">
+    <script src="{{ url_for('static', filename='jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static', filename='fritz.js') }}" type="text/javascript"></script>
+    <link href="{{ url_for('static', filename='fritz.css') }}" rel="stylesheet">
     <meta charset="UTF-8">
 </head>
 <body onload="myTimer()">
-<span id="datum" class="eins"></span>
-<span id="physical" class="zwei"></span>
-<span id="logical" class="drei"></span>
-<span id="up" class="vier"></span>
-<span id="up-bar" class="vier bg">&nbsp;</span>
-<span id="down" class="fuenf"></span>
-<span id="down-bar" class="fuenf bg">&nbsp;</span>
-<span id="uhr" class="uhr"></span>
+    <span id="datum" class="eins"></span>
+    <span id="physical" class="zwei"></span>
+    <span id="logical" class="drei"></span>
+    <span id="up" class="vier"></span>
+    <span id="up-bar" class="vier bg">&nbsp;</span>
+    <span id="down" class="fuenf"></span>
+    <span id="down-bar" class="fuenf bg">&nbsp;</span>
+    <span id="uhr" class="uhr"></span>
 </body>
 </html>
