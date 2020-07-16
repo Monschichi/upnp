@@ -3,12 +3,15 @@ body {
     color: #303030;
     font-family: monospace;
     font-size: 4em;
-    height: 5em;
-    white-space: pre;
+    overflow: hidden;
 }
 
 body::-webkit-scrollbar {
     width: 0;
+}
+
+span {
+    white-space: pre;
 }
 
 .eins {
