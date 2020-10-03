@@ -10,11 +10,9 @@ Designed for 7" Raspberry Pi Display.
 
 ## setup
 ```commandline
-# optional Python venv
-$ python3 -m venv .venv
-$ . .venv/bin/activate
-  
-$ pip install -r requirements.txt
+# optional Python pipenv
+$ pip install --user pipenv
+$ pipenv sync
 ```
 ## run
 ```commandline
