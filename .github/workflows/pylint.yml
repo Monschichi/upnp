@@ -8,10 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-      steps:
+    steps:
       - uses: actions/checkout@v2
       - name: Python Linter
-       uses: sunnysid3up/python-linter@master
-       with:
-         source: "."
-         strict: high
+        uses: sunnysid3up/python-linter@master
+        with:
+          source: "."
+          strict: high
