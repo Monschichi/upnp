@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
+import fritzconnection.core.exceptions
 from flask import (
     Flask,
     jsonify,
     render_template,
 )
 from fritzconnection import FritzConnection
-from fritzconnection.core.exceptions import ServiceError
 
 app = Flask(__name__, static_url_path='/static')
 fc = FritzConnection()
@@ -55,7 +55,7 @@ def status():
         json['upnp']['enabled'] = speeds['NewUpnpControlEnabled'] == '1'
 
         return jsonify(json)
-    except ServiceError:
+    except fritzconnection.core.exceptions.ServiceError:
         fc = FritzConnection()
         return jsonify(dict())
 

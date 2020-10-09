@@ -1,5 +1,3 @@
-/*eslint max-len: ["error", { "code": 140 }]*/
-
 function prepad(number, length) {
     return (" ".repeat(Math.max(0, length - number.toString().length)) + number);
 }
