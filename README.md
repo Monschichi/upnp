@@ -6,11 +6,9 @@ Designed for 7" Raspberry Pi Display.
 
 ## setup
 ```commandline
-# optional Python pipenv
-$ pip3 install --user pipenv
-$ pipenv sync
+$ pip3 install --user -r requirements.txt
 ```
 ## run
 ```commandline
-$ pipenv run upnp.py
+$ ./upnp.py
 ```
